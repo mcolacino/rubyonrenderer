@@ -1,0 +1,30 @@
+<h1>Editing renderer</h1>
+<div class="renderer_box">
+
+<div class="metadata">
+<% form_for(@renderer) do |f| %>
+  <%= f.error_messages %>
+  <div>
+    <div><%= f.label :title %></div>
+    <div><%= f.text_field :title %></div>
+  </div>
+  <div>
+    <div><%= f.label :description %></div>
+    <div><%= f.text_area :description, :rows => 5 %></div>
+  </div>
+  <div>
+    <%= f.submit 'Update' %>
+  </div>
+<% end %>
+</div>
+<div id="mappings_<%=@renderer.id%>" class="mappings">
+  <% @renderer.get_mappings.each_with_index do |@mapping, @position| %>
+  <%= render :partial => 'mapping' %>
+  <% end %>
+</div>
+<div class="add_mapping">
+  <%= link_to_function %Q{Create a new Mapping}, %Q{add_mapping(#{@renderer.id})} %>
+  <%=render_loader_with_id "loader_add_mapping" %>
+</div>
+<%= link_to 'Show', @renderer %> | <%= link_to 'Back', renderers_path %>
+</div>

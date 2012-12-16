@@ -1,0 +1,34 @@
+
+<% field_set_tag "Mapping Item Editor per #{@item.placeholder.upcase} #{render_status(@item)}" do %>
+<div id="mapping_item_editor_<%=@renderer.id%>_<%=@position%>">
+ <%
+ attrs = {
+   :url => {:action => 'update_mapping_item'},
+   :update => "input_assignment_tab_#{@renderer.id}_#{@position}",
+   :loading => %Q{Element.toggle("input_assignment_tab_loader_#{@renderer.id}_#{@position}");},
+   :complete => %Q{Element.toggle("input_assignment_tab_loader_#{@renderer.id}_#{@position}");}
+   }
+ form_remote_tag attrs do -%>
+  <div id="input_assignment_tab_wrapper_<%=@renderer.id%>_<%=@position%>" class="input_assignment_tab_wrapper">
+     <%= render :partial => 'input_assignment_tab' %>
+  </div>
+<% end -%>
+<%
+ attrs = {
+   :url => {:action => 'add_decoration_to_a_mapping_item'},
+   :update => "decoration_editor_wrapper_#{@item.placeholder}_#{@renderer.id}_#{@position}",
+   :position => :bottom,
+   :loading => %Q{Element.toggle("decoration_type_choose_tab_loader_#{@renderer.id}_#{@position}");},
+   :complete => %Q{Element.toggle("decoration_type_choose_tab_loader_#{@renderer.id}_#{@position}");}
+   }
+ form_remote_tag attrs do -%>
+  <div id="decoration_type_choose_tab_wrapper_<%=@renderer.id%>_<%=@position%>" class="decoration_type_choose_tab">
+     <%= render :partial => 'decoration_type_choose_tab' %>
+  </div>
+<% end -%>
+</div>
+
+<div id="decoration_editor_wrapper_<%=@item.placeholder%>_<%=@renderer.id%>_<%=@position%>">
+  <%= render :partial => 'decoration_editor' %>
+</div>
+<% end %>

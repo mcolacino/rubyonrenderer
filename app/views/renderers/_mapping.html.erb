@@ -1,0 +1,22 @@
+<div id="mapping_wrapper_<%=@renderer.id%>_<%=@position%>" class="mapping_wrapper" style="display:block;">
+<h3>Mapping <span>ID temporaneo <%=@mapping.object_id%></span></h3>
+<div class="remove_mapping">
+  <%= link_to_function %Q{Delete}, %Q{remove_mapping(#{@renderer.id}, #{@position})} %>
+  <%= render_loader_with_id "loader_#{@renderer.id}_#{@position}" %>
+</div>
+</div>
+<% form_tag('/posts') do -%>
+<% field_set_tag "Mapping Info #{render_status @mapping}" do %>
+<%= render_format_select @mapping %>
+<%= render_environments_select @mapping %>
+<% end %>
+<% end %>
+
+<% field_set_tag "Template Editor" do %>
+<div id="template_editor_wrapper_<%=@renderer.id%>_<%=@position%>">
+<%= render :partial => 'template_editor' %>
+</div>
+<% end %>
+<div id="mapping_item_editor_wrapper_<%=@renderer.id%>_<%=@position%>">
+<div id="mapping_item_editor_<%=@renderer.id%>_<%=@position%>"></div>
+</div>

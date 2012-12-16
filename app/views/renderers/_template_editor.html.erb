@@ -1,0 +1,26 @@
+  <div id="template_editor_<%=@renderer.id%>_<%=@position%>">
+
+  <% @template_editor_mode ||= :preview %>
+
+  <%= link_to_function %Q{Switch Template Editor Mode}, %Q{switch_editor_mode(#{@renderer.id}, #{@position}, '#{@template_editor_mode}')} %>
+  <%= render_loader_with_id "switch_editor_mode_loader_#{@renderer.id}_#{@position}" %>
+
+  <div id="template_editor_preview_box_<%=@renderer.id%>_<%=@position%>" class="template_editor" style="display:<%=(@template_editor_mode == :edit) ? 'none':'block'%>;">
+    <pre><%= @mapping.show_template %></pre>
+  </div>
+  <div id="template_editor_textarea_box_<%=@renderer.id%>_<%=@position%>" style="display:<%=(@template_editor_mode == :edit) ? 'block':'none' %>;">
+    <%= text_area_tag 'template', @mapping.template.code, :cols => 50, :rows => 10, :id => "template_#{@renderer.id}_#{@position}"  %>
+  </div>
+  <%
+    observers = %Q{
+      // Setto un observer sul click dei placeholder
+      var renderer_id = #{@renderer.id};
+      var position = #{@position};
+      $$('#template_editor_preview_box_#{@renderer.id}_#{@position} .placeholder').each(function(el){
+        Event.observe(el,'click', load_mapping_item_editor.bindAsEventListener(this, renderer_id,position, el));
+      })
+    }
+  %>
+  <%= javascript_tag(observers) %>
+
+  </div>

@@ -1,0 +1,7 @@
+<%= hidden_field_tag 'id', @renderer.id %>
+<%= hidden_field_tag 'position', @position %>
+<%= hidden_field_tag 'placeholder', @item.placeholder %>
+<span><%= label_tag 'input', 'Input' %></span>
+<span><%= text_field_tag 'input', @item.input, :size => 20 %></span>
+<span><%= submit_tag "Aggiorna", :disable_with => "Aggiorna" %></span>
+<%= render_loader_with_id "input_assignment_tab_loader_#{@renderer.id}_#{@position}" %>

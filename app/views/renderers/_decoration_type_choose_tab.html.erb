@@ -1,0 +1,6 @@
+<%= hidden_field_tag 'id', @renderer.id %>
+<%= hidden_field_tag 'position', @position %>
+<%= hidden_field_tag 'placeholder', @item.placeholder %>
+<%= render_decoration_type_select %>
+<span><%= submit_tag "Aggiungi decoration", :disable_with => "Aggiungi decoration" %></span>
+<%= render_loader_with_id "decoration_type_choose_tab_loader_#{@renderer.id}_#{@position}" %>

@@ -1,0 +1,42 @@
+<%
+ attrs = {
+   :url => {:action => 'update_decoration_for_a_mapping_item'},
+   :update => "decoration_wrapper_#{@decoration_position}_ph_#{@item.placeholder}_mapping_#{@position}_renderer_#{@renderer.id}",
+   :loading => %Q{Element.toggle("decoration_loader_#{@decoration_position}_ph_#{@item.placeholder}_mapping_#{@position}_renderer_#{@renderer.id}");},
+   :complete => %Q{Element.toggle("decoration_loader_#{@decoration_position}_ph_#{@item.placeholder}_mapping_#{@position}_renderer_#{@renderer.id}");}
+   }
+ form_remote_tag attrs do -%>
+   <div class="decoration_wrapper" id="decoration_wrapper_<%=@decoration_position%>_ph_<%=@item.placeholder%>_mapping_<%=@position%>_renderer_<%=@renderer.id%> ">
+   <div id="condition_<%=@decoration_position%>_ph_<%=@item.placeholder%>_mapping_<%=@position%>_renderer_<%=@renderer.id%> ">
+   <h4>
+   <%= render_status @decoration %>
+   <%= link_to_remote "Delete",
+      :url => {
+      :action => 'delete_decoration_from_a_mapping_item',
+      :id => @renderer.id,
+      :position => @position,
+      :placeholder => @item.placeholder,
+      :decoration_position => @decoration_position
+      },
+      :update => "decoration_editor_wrapper_#{@item.placeholder}_#{@renderer.id}_#{@position}"
+  %>
+  <%= render_loader_with_id "delete_decoration_loader_#{@decoration_position}_ph_#{@item.placeholder}_mapping_#{@position}_renderer_#{@renderer.id}" %>
+  </h4>
+
+  <%= hidden_field_tag 'id', @renderer.id %>
+  <%= hidden_field_tag 'position', @position %>
+  <%= hidden_field_tag 'condition_position', @decoration_position %>
+  <%= hidden_field_tag 'placeholder', @item.placeholder %>
+     
+  <%= render :partial => "decoration_edit_#{@decoration.partial}" %>
+
+  <div>
+  <%= submit_tag "Aggiorna", :disable_with => "Aggiorna" %>
+  <%= render_loader_with_id "decoration_loader_#{@decoration_position}_ph_#{@item.placeholder}_mapping_#{@position}_renderer_#{@renderer.id}" %>
+  </div>
+  </div>
+
+
+   </div>
+<% end -%>
+

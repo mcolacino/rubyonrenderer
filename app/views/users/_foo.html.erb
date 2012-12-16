@@ -1,0 +1,7 @@
+<div id="foo">
+<% form_remote_tag :url => {:action => 'foo'}, :update => 'foo' do -%>
+  <%=submit_tag 'Test'%>
+<% end %>
+<%= link_to_function %Q{Annamo}, %Q{foo()} %>
+
+</div>

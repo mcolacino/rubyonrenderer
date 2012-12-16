@@ -1,0 +1,6 @@
+
+<% @decoration.params_definition.each do |arg| %>
+<div><%= label_tag arg.to_s, arg.to_s.capitalize %></div>
+<div><%= text_field_tag arg.to_s, @decoration.params[arg], :size => 20 %></div>
+<% end %>
+
